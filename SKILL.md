@@ -1,375 +1,243 @@
 ---
 name: no-ia-slop-es
 description: >
-  Edita, redacta o audita textos en español para reducir IA slop: relleno,
-  baja densidad informativa, repetición, formulismo, abstracciones sin sustento,
-  tono genérico, simetría artificial y calcos poco idiomáticos. Úsala cuando
-  el usuario pida naturalizar un texto, quitar “tono de IA”, hacerlo más
-  directo o propio, revisar si suena genérico, preservar su voz al editar,
-  o prevenir estos patrones al redactar en español. No determina autoría
-  ni intenta engañar detectores.
+  Reduce IA slop al redactar, editar o auditar texto en español: relleno,
+  repetición, baja densidad informativa, formulismo, abstracción, tono genérico,
+  conectores mecánicos, simetría artificial y calcos. Úsala cuando el usuario
+  pida naturalizar un texto, quitar tono de IA, hacerlo más directo o propio,
+  preservar su voz, evitar prosa corporativa/genérica o auditar estos patrones.
+  No la uses como detector de autoría ni para optimizar contra detectores de IA.
+compatibility: >
+  Diseñada para agentes compatibles con Agent Skills, incluidos OpenAI Codex y Claude Code.
 metadata:
-  version: "1.0.0"
+  author: "bassfredes"
+  version: "1.1.0"
   language: "es"
   scope: "writing-editing-audit"
 ---
 
 # No IA slop — español
 
-Actúa como editor de español. Tu objetivo es aumentar precisión, densidad, naturalidad y voz propia sin inventar contenido ni convertir todos los textos en una misma prosa “bonita”.
+Edita como un editor de español, no como un “humanizador”. Aumenta precisión, densidad y naturalidad sin inventar contenido ni imponer una voz única.
 
-La meta no es que un texto “parezca humano” ante un detector. La meta es que cada frase cumpla una función y que el texto refleje información, criterio y registro reales.
+La meta es que el texto diga algo concreto, con el registro que corresponde y con la voz de quien lo firma. No intentes demostrar que el texto es humano ni modificarlo para bajar un score de detección.
 
-## Modos
+## Elige un modo
 
-Determina el modo por la petición del usuario:
+Determina el modo por la petición del usuario y no los mezcles sin necesidad:
 
-1. **Editar** — modo por defecto cuando el usuario entrega un borrador y pide mejorarlo, naturalizarlo, hacerlo menos genérico o quitar IA slop.
-2. **Redactar** — cuando pide crear un texto nuevo y menciona evitar IA slop, tono genérico o “voz de IA”.
-3. **Auditar** — cuando pide detectar, revisar, marcar o explicar problemas sin reescribir.
+1. **Editar** — existe un borrador y el usuario pide mejorarlo, naturalizarlo, quitar relleno o reducir tono de IA.
+2. **Redactar** — pide crear un texto nuevo y quiere evitar prosa genérica, corporativa o formulaica.
+3. **Auditar** — pide localizar y explicar problemas sin reescribir.
 
-No mezcles modos si el usuario no lo pidió.
+Si el usuario solo pide ortografía, traducción, resumen u otra transformación que no implique estos criterios editoriales, no amplíes el trabajo a una auditoría de slop.
 
-## Antes de tocar el texto
+## Antes de escribir
 
 Identifica internamente:
 
-- propósito del texto;
-- audiencia y canal, si están disponibles;
-- español o variedad regional que ya usa el autor;
+- qué debe conseguir el texto;
+- quién lo leerá y en qué canal, si se sabe;
+- variedad regional presente o solicitada;
 - tesis, decisión o mensaje central;
-- 3–5 rasgos de voz que conviene preservar: vocabulario, longitud de frases, nivel de formalidad, humor, brusquedad, dudas, tecnicismos, oralidad o ritmo.
+- 3–5 señales de voz que conviene preservar: vocabulario, cadencia, nivel de formalidad, brusquedad, humor, dudas, tecnicismos, oralidad o nivel de pulido.
 
-No “corrijas” una variedad regional hacia un español internacional neutro. Conserva chilenismos, rioplatensismos, mexicanismos, peninsularismos u otros rasgos cuando sean naturales para el autor y adecuados al contexto.
+Si el borrador ya tiene una voz clara, esa voz manda sobre cualquier preferencia por defecto de esta skill.
 
-Si falta un dato concreto, no lo inventes para volver el texto “más humano”.
+No neutralices automáticamente chilenismos, rioplatensismos, mexicanismos, peninsularismos u otros rasgos regionales. No inventes datos concretos para volver el texto “más humano”.
 
-## Principios de edición
+## Orden de prioridad
 
-### 1. Preserva la voz antes que la uniformidad
+Resuelve problemas en este orden:
 
-No reescribas una frase clara solo para que suene más elegante. Un texto con personalidad puede tener:
+1. **Fidelidad y factualidad.** No cambies el sentido, certeza, posición ni hechos disponibles.
+2. **Densidad informativa.** Elimina reformulaciones y frases que ocupan espacio sin aportar información o función.
+3. **Coherencia.** Haz que cada idea aparezca donde cumple una función; no vuelvas a presentarla después como si fuera nueva.
+4. **Voz y registro.** Conserva el idioma real del autor y adecua la formalidad al género.
+5. **Microestilo.** Solo después corrige conectores, ritmo, nominalizaciones, adjetivos o sintaxis.
 
-- frases cortas junto a otras largas;
-- incisos;
-- primera persona;
-- tecnicismos;
-- coloquialismos;
-- cierta aspereza;
-- repeticiones deliberadas;
-- fragmentos cuando funcionan en el género.
+No sacrifiques una prioridad superior para mejorar una inferior.
 
-Corrige lo que perjudica claridad, precisión o ritmo. No alises lo distintivo.
+## Principios
 
-### 2. Haz la mínima intervención eficaz
+### Preserva antes de pulir
 
-Reduce slop sin comprimir de forma agresiva. Si el borrador ya tiene sustancia, conserva su estructura.
+Deja intactas las frases que ya son claras, específicas y propias del autor. No uniformes el texto por estética.
 
-Reorganiza solo cuando la secuencia oculta el punto, repite ideas o separa una afirmación de la evidencia que la sostiene.
+Una voz válida puede contener frases cortas y largas, incisos, primera persona, tecnicismos, coloquialismos, cierta aspereza, dudas o fragmentos cuando el género los admite.
 
-### 3. Edita primero la información, después el estilo
+### Haz la mínima intervención eficaz
 
-Una frase vacía no se arregla cambiando sinónimos.
+Corrige el slop real. No reescribas todo para demostrar que editaste.
 
-En vez de:
+Reorganiza solo si la secuencia oculta el punto, repite una idea o separa una afirmación de su soporte. Si el texto ya funciona, puede quedar casi igual.
+
+### Una idea se explica una vez
+
+Cuando una idea importante ya fue explicada con suficiente detalle, después úsala o refiérela; no la reintroduzcas con sinónimos.
+
+Distingue repetición funcional de repetición ornamental. En documentación técnica, repetir el término correcto suele ser mejor que rotar vocabulario.
+
+### Edita información antes que sinónimos
+
+Cambiar `significativo` por `considerable` no arregla una frase vacía.
+
+Busca qué dato, mecanismo, restricción, decisión o consecuencia sostiene la afirmación. Si el material no lo contiene, recorta o condiciona la frase; no inventes especificidad.
+
+Ejemplo:
+
 > La implementación representa un avance significativo que permite optimizar distintos procesos.
 
-Busca qué sostiene realmente el borrador:
-> La implementación elimina la carga manual de pedidos entre VTEX y el ERP.
+Si el contexto realmente lo dice:
 
-Si el borrador no contiene ese dato, no lo inventes. Recorta la abstracción o señala que falta evidencia.
+> La implementación elimina la carga manual de pedidos entre el e-commerce y el ERP.
 
-### 4. Protege detalles concretos
+Si el contexto no lo dice, no fabriques esa segunda frase.
 
-Nombres, fechas, cifras, restricciones, mecanismos, ejemplos, decisiones y consecuencias suelen aportar más valor que adjetivos de importancia.
+### Protege los detalles concretos
 
 No conviertas:
+
 > El deploy bajó de 40 a 8 minutos.
 
-en:
+En:
+
 > El nuevo enfoque mejoró significativamente la eficiencia del despliegue.
 
-### 5. Usa el test de portabilidad
+Nombres, cifras, fechas, condiciones, mecanismos y decisiones tienen prioridad sobre adjetivos de importancia.
 
-Pregunta internamente:
+### Usa el test de portabilidad
+
+Pregunta:
 
 > ¿Esta oración podría copiarse sin cambios a otra empresa, proyecto, país o persona?
 
-Si la respuesta es sí y la frase no cumple una función retórica clara, probablemente es relleno. Elimínala o ancla la idea en información del caso.
+Si la respuesta es sí y la frase no cumple una función retórica necesaria, probablemente es relleno. Elimínala o ancla la idea en información disponible.
 
-### 6. Prefiere verbos directos
+### Prefiere verbos directos
 
-Reduce perífrasis burocráticas cuando no aportan matiz:
+Simplifica perífrasis burocráticas cuando no pierdas precisión:
 
-- `llevar a cabo una revisión` → `revisar`
-- `proceder a realizar` → `realizar` o `hacer`
-- `efectuar la implementación` → `implementar`
-- `tener la capacidad de` → `poder`
-- `hacer uso de` → `usar`
+- `llevar a cabo una revisión` → `revisar`;
+- `proceder a realizar` → `realizar` o `hacer`;
+- `efectuar la implementación` → `implementar`;
+- `tener la capacidad de` → `poder`;
+- `hacer uso de` → `usar`.
 
-No apliques esta regla si el término nominal es el concepto técnico correcto.
+No destruyas términos nominales que sean conceptos técnicos reales.
 
-### 7. No expliques la importancia: demuéstrala
+### No anuncies la importancia si el texto puede demostrarla
 
-Revisa expresiones como:
+Revisa, no prohíbas:
 
 - `es importante destacar`;
 - `cabe señalar`;
 - `resulta fundamental`;
 - `este punto es clave`;
-- `esto cobra especial relevancia`;
-- `conviene recordar`.
+- `cobra especial relevancia`.
 
-No están prohibidas. Elimínalas cuando solo anuncian énfasis y la frase siguiente ya puede sostenerse sola.
+Elimina el marcador si solo etiqueta la frase siguiente como importante. Consérvalo si el género realmente necesita señalización explícita.
 
-### 8. No fuerces equilibrio artificial
+### No fuerces contraste ni equilibrio
 
-Desconfía de estructuras automáticas como:
+Estructuras como `no se trata de X, sino de Y`, `por un lado... por otro lado...` u `oportunidades y desafíos` son válidas cuando representan el razonamiento real. Corrígelas cuando existen solo para fabricar simetría.
 
-- `oportunidades y desafíos`;
-- `ventajas y desventajas`;
-- `no se trata de X, sino de Y`;
-- `por un lado... por otro lado...`;
-- `si bien X, también Y`.
+### Deja que la lógica haga las transiciones
 
-Son válidas cuando reflejan el razonamiento real. Corrígelas cuando aparecen por simetría y no porque existan dos lados relevantes.
+No insertes conectores por reflejo. Revisa concentraciones de `en este sentido`, `asimismo`, `de esta manera`, `por otro lado`, `sin embargo`, `por lo tanto`, `en definitiva` o equivalentes.
 
-### 9. Deja que la lógica haga las transiciones
+Una aparición aislada no es un problema. El problema es usarlos para simular continuidad donde no hay progresión real.
 
-No insertes conectores en cada párrafo.
+### Vigila verbos comodín repetidos
 
-Revisa concentraciones de:
+En especial, revisa secuencias donde `permite`, `facilita`, `mejora`, `optimiza` o `garantiza` aparecen una y otra vez sin precisar mecanismo.
 
-- `en este sentido`;
-- `asimismo`;
-- `por otro lado`;
-- `de este modo`;
-- `en consecuencia`;
-- `sin embargo`;
-- `en última instancia`;
-- `en definitiva`;
-- `por lo tanto`.
+No sustituyas mecánicamente por sinónimos. Reestructura la frase o elimina la afirmación redundante.
 
-Una aparición aislada no es un problema. El patrón aparece cuando el texto depende de ellos para simular continuidad en vez de construirla.
+### Conserva terminología técnica estable
 
-### 10. Conserva terminología estable
+No cambies `workspace`, `checkout`, `HEAD`, `SHA`, `endpoint`, `seller`, `binding` u otros términos solo para “variar”. Primero determina si son conceptos distintos. Consistencia > variedad decorativa.
 
-No cicles sinónimos por “variedad” si se trata del mismo concepto.
+## Qué cuenta como señal de slop
 
-Si el texto habla de `workspace`, `entorno de desarrollo` y `ambiente` como si fueran equivalentes, decide si realmente lo son. En documentación técnica, repetir el término correcto suele ser mejor que variar por estilo.
+No uses palabras aisladas como detector. Evalúa combinaciones de patrones:
 
-## Patrones de IA slop en español
+- baja densidad informativa;
+- repetición semántica;
+- estructura predecible que domina el contenido;
+- abstracción sin referente;
+- metadiscurso que dice al lector qué debe considerar importante;
+- tríadas o enumeraciones por reflejo;
+- conectores seriales;
+- formalidad no motivada por el canal;
+- español deslocalizado o calcos;
+- cierre grandilocuente o recapitulación sin función;
+- rotación de sinónimos para el mismo concepto;
+- voz que cambia durante el documento.
 
-Consulta `references/patrones-es.md` cuando necesites ejemplos, criterios o casos límite. No trates ninguna palabra o giro aislado como prueba de IA.
+Para ejemplos y casos límite, consulta [references/patrones-es.md](references/patrones-es.md). Para la calibración editorial por defecto y ejemplos de decisiones aceptadas, consulta [references/calibracion-editorial.md](references/calibracion-editorial.md) cuando el texto no tenga una voz suficientemente clara o la edición sea extensa.
 
-Los patrones principales son:
-
-### A. Arranque universal
-
-Ejemplos típicos:
-
-- `En un mundo cada vez más...`
-- `En la actualidad...`
-- `Hoy en día...`
-- `En el contexto actual...`
-- `A medida que la tecnología continúa evolucionando...`
-
-Córtalos si el texto puede empezar directamente por el hecho, problema o tesis.
-
-### B. Baja densidad informativa
-
-Señales:
-
-- varias frases reformulan la misma proposición;
-- abundan adjetivos pero faltan mecanismos;
-- la conclusión ya estaba contenida en la introducción;
-- el párrafo no cambia lo que el lector sabe.
-
-Acción: conservar una formulación y añadir evidencia disponible o terminar antes.
-
-### C. Abstracción inflada
-
-Revisa cadenas como:
-
-- `enfoque integral`;
-- `solución robusta`;
-- `experiencia fluida`;
-- `impacto significativo`;
-- `papel fundamental`;
-- `visión estratégica`;
-- `ecosistema dinámico`;
-- `entorno en constante evolución`;
-- `potenciar capacidades`;
-- `impulsar la innovación`;
-- `optimizar procesos`.
-
-No las prohíbas. Exige referente: ¿qué hace?, ¿cómo?, ¿cuánto?, ¿para quién?, ¿con qué consecuencia?
-
-### D. Metadiscurso interpretativo
-
-Ejemplos:
-
-- `lo importante aquí es`;
-- `la clave está en`;
-- `esto demuestra que`;
-- `como podemos ver`;
-- `dicho de otro modo`;
-- `este punto merece especial atención`.
-
-Si la evidencia ya muestra la conclusión, elimina el comentario. Si no la muestra, falta soporte.
-
-### E. Falsa profundidad
-
-Ejemplos:
-
-- cierre aforístico;
-- metáfora final que no añade información;
-- “mic drop” genérico;
-- frase breve dramática después de un párrafo explicativo.
-
-Termina en el último dato, decisión, consecuencia o acción útil.
-
-### F. Recapitulación mecánica
-
-Revisa:
-
-- `en conclusión`;
-- `en resumen`;
-- `en definitiva`;
-- `en última instancia`;
-- un último párrafo que repite lo ya dicho sin nueva decisión.
-
-En textos cortos, suele sobrar. En informes largos puede ser correcto si sintetiza decisiones o resultados, no si solo parafrasea.
-
-### G. Ritmo robótico
-
-Señales:
-
-- todas las frases tienen longitud parecida;
-- todos los párrafos siguen `afirmación → explicación → contraste → cierre`;
-- tres bullets con estructura idéntica sin necesidad;
-- fragmentos dramáticos apilados;
-- cada sección tiene la misma cantidad de párrafos.
-
-No introduzcas variación aleatoria. Cambia la forma solo cuando la idea lo pida.
-
-### H. Listas de tres por reflejo
-
-Revisa tríadas como:
-
-- `ágil, robusto y escalable`;
-- `eficiente, segura y sostenible`;
-- `claridad, coherencia y precisión`.
-
-Conserva exactamente los elementos que tengan contenido verificable. Dos pueden bastar. Cuatro también.
-
-### I. Atribución sin fuente
-
-Revisa:
-
-- `los expertos coinciden`;
-- `diversos estudios demuestran`;
-- `la industria reconoce`;
-- `se ha comprobado`;
-- `es ampliamente aceptado`.
-
-Nombra la fuente disponible o elimina/condiciona la afirmación. Nunca inventes una cita.
-
-### J. Español deslocalizado o calco
-
-Revisa cuando el texto parece traducido o excesivamente neutral:
-
-- colocaciones poco idiomáticas;
-- estructuras copiadas del inglés;
-- términos técnicos que cambian de traducción;
-- formalidad que no corresponde al canal;
-- eliminación innecesaria de vocabulario regional.
-
-No conviertas preferencias dialectales en “errores”. Corrige solo si afecta naturalidad o precisión en la variedad objetivo.
-
-## Frases de riesgo, no palabras prohibidas
-
-No uses una blacklist rígida. Expresiones como `cabe destacar`, `en este sentido`, `sin embargo`, `fundamental`, `robusto` o `significativo` son español normal.
-
-Márcalas solo cuando ocurre una o más de estas condiciones:
-
-- sustituyen un dato o mecanismo;
-- se repiten;
-- crean énfasis sin soporte;
-- forman parte de una estructura predecible;
-- no corresponden al registro;
-- podrían eliminarse sin perder significado.
-
-## Formato
+## Salida por modo
 
 ### Editar
 
 Devuelve el texto completo editado.
 
-Después, salvo que el usuario haya pedido “solo el texto” o un formato que no admita comentarios, añade:
+Salvo que el usuario pida solo el texto o el formato no admita comentarios, añade al final:
 
 **Cambios realizados**
-- 2–5 bullets breves sobre cambios sustantivos, no una lista de correcciones menores.
+- 2–5 puntos breves sobre cambios sustantivos.
 
-No digas que el texto ahora “parece humano” ni que “pasará detectores”.
+No enumeres microcorrecciones.
 
 ### Redactar
 
-Entrega directamente el artefacto solicitado. No añadas una explicación del método salvo que el usuario la pida.
+Entrega el artefacto solicitado. No añadas una explicación del método salvo que el usuario la pida.
+
+Cuando el usuario ya ha dado contenido suficiente, escribe desde ese contenido; no lo expandas con generalidades para “completar”.
 
 ### Auditar
 
-No reescribas. Usa esta estructura:
+No reescribas. Usa:
 
 | Patrón | Fragmento | Problema | Acción |
 |---|---|---|---|
-| [nombre] | “[fragmento breve]” | [por qué reduce calidad] | [qué hacer] |
+| [patrón] | “[fragmento breve]” | [efecto editorial] | [acción concreta] |
 
-Después añade, si corresponde:
+Después, si aporta valor, añade **Lo que conviene preservar** con voz, datos, tecnicismos o estructura que ya funcionan.
 
-**Lo que conviene preservar**
-- rasgos de voz;
-- datos concretos;
-- giros regionales o técnicos;
-- estructura que sí funciona.
-
-No asignes un porcentaje de “IA”, no declares autoría y no conviertas el informe en un detector forense.
+No asignes porcentaje de IA ni atribuyas autoría.
 
 ## Restricciones
 
-- No inventes experiencias personales, escenas, cifras, fuentes, citas, nombres ni resultados.
+- No inventes experiencias, escenas, cifras, fuentes, citas, nombres ni resultados.
+- No aumentes el grado de certeza del autor.
 - No introduzcas faltas deliberadas.
-- No uses traducción de ida y vuelta, “burstiness” artificial ni sustitución aleatoria de sinónimos para eludir detectores.
-- No neutralices automáticamente el español regional.
-- No vuelvas informal un texto técnico o jurídico solo para hacerlo “más humano”.
-- No elimines terminología técnica válida por parecer compleja.
+- No uses “burstiness”, traducción de ida y vuelta ni aleatoriedad estilística para eludir detectores.
+- No neutralices español regional sin motivo de audiencia.
+- No vuelvas informal un texto técnico, académico o jurídico solo para hacerlo “más humano”.
+- No elimines terminología válida por parecer compleja.
 - No conviertas toda prosa en frases cortas.
-- No añadas opiniones más fuertes que las del autor.
-- No confundas fluidez con calidad ni imperfección con autenticidad.
+- No añadas entusiasmo, diplomacia u opiniones que el autor no expresó.
+- No transformes una lista útil en prosa ni una prosa clara en lista por decoración.
 
 ## Workflow
 
 1. Determina `editar`, `redactar` o `auditar`.
-2. Lee el texto completo o todo el contexto disponible antes de modificar.
-3. Identifica mensaje central y rasgos de voz.
-4. Detecta problemas por patrón, no por palabras aisladas.
-5. Prioriza en este orden:
-   1. factualidad y fidelidad;
-   2. densidad informativa;
-   3. coherencia y estructura;
-   4. registro y voz;
-   5. ritmo y microestilo.
-6. Haz la mínima intervención que resuelva el problema.
-7. Para textos de más de ~150 palabras o ediciones sustantivas, revisa `eval.md`.
-8. Si falla un criterio aplicable, corrige y vuelve a comprobar.
-9. Entrega en el formato solicitado por el usuario.
+2. Lee el texto y el contexto disponible antes de cambiar nada.
+3. Identifica mensaje y señales de voz.
+4. Detecta problemas por función y patrón, no por blacklist.
+5. Resuelve primero fidelidad, después densidad, estructura, voz y microestilo.
+6. Haz la mínima intervención eficaz.
+7. Para textos de más de ~150 palabras, ediciones extensas o cualquier caso dudoso, aplica [eval.md](eval.md).
+8. Si falla un criterio aplicable, corrige y vuelve a revisar.
+9. Entrega en el formato que pidió el usuario.
 
-## Gotchas
+## Casos límite
 
-- Un texto correcto y formal puede ser bueno. No ataques la formalidad por sí misma.
-- Una frase cliché puede ser exactamente la frase correcta. Evalúa concentración y función.
-- Repetir un término técnico suele ser mejor que rotar sinónimos.
-- La voz humana no equivale a oralidad ni a primera persona.
-- La concreción solo es válida si procede del contexto o de fuentes reales.
-- Un detector puede equivocarse; esta skill evalúa calidad editorial, no procedencia.
-- Si el usuario quiere evadir Turnitin, GPTZero u otro detector, no optimices para el score. Puedes ayudar a mejorar calidad, precisión, trazabilidad y voz propia.
+- Un texto correcto y formal puede estar bien. Formalidad no equivale a slop.
+- Un cliché puede ser la frase correcta. Evalúa función, frecuencia y contexto.
+- Repetir terminología técnica puede mejorar precisión.
+- Primera persona, oralidad y errores no son requisitos de “humanidad”.
+- La concreción solo sirve si procede del texto o de fuentes reales.
+- Si el usuario pide evadir GPTZero, Turnitin u otro detector, no optimices el score; sí puedes mejorar precisión, fuentes, voz, densidad y trazabilidad.

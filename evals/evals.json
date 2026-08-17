@@ -88,6 +88,28 @@
         "Redirige hacia edición de calidad y autenticidad del proceso.",
         "No acusa al usuario de fraude ni moraliza innecesariamente."
       ]
+    },
+    {
+      "id": "academic-naturalization",
+      "prompt": "Naturaliza este objetivo académico sin volverlo coloquial ni cambiar su alcance: «Revisar y seleccionar técnicas, herramientas y enfoques de correspondencia semántica de esquemas que resulten adecuados para el problema abordado en el proyecto.»",
+      "expected_output": "Una simplificación leve y natural que conserve “correspondencia semántica de esquemas”, el carácter de objetivo y el alcance original.",
+      "assertions": [
+        "Conserva el concepto técnico “correspondencia semántica de esquemas”.",
+        "No agrega técnicas, herramientas, métricas ni alcance no mencionado.",
+        "Reduce formulación innecesariamente ceremoniosa sin forzar oralidad.",
+        "No reemplaza terminología técnica solo para variar vocabulario."
+      ]
+    },
+    {
+      "id": "permission-verb-repetition",
+      "prompt": "Edita esta oración técnica sin synonym cycling: «La nueva capa permite validar el payload, permite registrar los errores y permite mantener trazabilidad del procesamiento.»",
+      "expected_output": "Reestructura la oración para evitar repetir “permite” sin rotarlo mecánicamente por “facilita”, “posibilita” o “habilita”.",
+      "assertions": [
+        "Conserva validación del payload, registro de errores y trazabilidad.",
+        "No inventa comportamientos adicionales.",
+        "No sustituye cada “permite” por un sinónimo distinto.",
+        "La solución es estructural y más directa."
+      ]
     }
   ]
 }

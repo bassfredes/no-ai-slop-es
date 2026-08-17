@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "purpose": "Corpus de calibración editorial. Los casos se usan para comprobar preservación de voz, edición mínima y rechazo de slop; no se cargan como instrucciones de runtime.",
+  "cases": [
+    {
+      "id": "academic-naturalization",
+      "domain": "academic",
+      "input": "Revisar y seleccionar técnicas, herramientas y enfoques de correspondencia semántica de esquemas que resulten adecuados para el problema abordado en el proyecto.",
+      "accepted_direction": "Revisar y escoger técnicas, herramientas y enfoques de correspondencia semántica de esquemas que sean convenientes para el problema que trata el proyecto.",
+      "preserve": ["correspondencia semántica de esquemas", "alcance del objetivo"],
+      "avoid": ["hacerlo coloquial", "agregar alcance o técnicas no mencionadas", "inflar la formalidad"]
+    },
+    {
+      "id": "technical-directness",
+      "domain": "technical",
+      "input": "El checkout se puede mantener. El dolor está principalmente en logística y en separar qué parte queda en VTEX y qué parte pasa a headless. FastStore no obliga por sí mismo a rehacer checkout.",
+      "accepted_direction": "Edición mínima; mantener la tesis, los términos VTEX/headless/FastStore y el tono directo.",
+      "preserve": ["checkout", "logística", "VTEX", "headless", "FastStore", "la relación causal"],
+      "avoid": ["marketing", "sinónimos para tecnicismos", "beneficios inventados", "reescritura total"]
+    },
+    {
+      "id": "chilean-internal-message",
+      "domain": "work-chat",
+      "input": "Creo que acá nos estamos complicando solos. Si el endpoint ya devuelve el dato, yo no metería otra capa solo para dejarlo más 'bonito'. Después esa capa la tenemos que mantener nosotros.",
+      "accepted_direction": "Conservar primera persona, 'acá', la advertencia de mantenimiento y la aspereza útil; solo corregir si mejora legibilidad.",
+      "preserve": ["acá", "endpoint", "primera persona", "posición técnica"],
+      "avoid": ["neutralizar el español", "volverlo diplomático", "convertirlo en recomendación corporativa"]
+    },
+    {
+      "id": "one-idea-once",
+      "domain": "long-form",
+      "input": "Una idea importante ya fue explicada en el capítulo anterior y vuelve a aparecer en la introducción, desarrollo y cierre de la sección siguiente con palabras distintas.",
+      "accepted_direction": "Conservar una explicación propietaria y, en apariciones posteriores, referenciarla o usarla sin reintroducirla.",
+      "preserve": ["la idea original", "trazabilidad entre secciones"],
+      "avoid": ["reformular por variedad", "crear nuevas subsecciones para repetirla"]
+    },
+    {
+      "id": "formal-technical-is-not-slop",
+      "domain": "acceptance-criteria",
+      "input": "La solicitud debe rechazarse cuando el expected head SHA no coincida con el HEAD remoto. El rechazo debe ocurrir antes de cualquier mutación.",
+      "accepted_direction": "Sin cambios sustantivos.",
+      "preserve": ["expected head SHA", "HEAD remoto", "orden fail-closed"],
+      "avoid": ["coloquialidad forzada", "conectores añadidos", "explicación innecesaria"]
+    },
+    {
+      "id": "permission-verb-repetition",
+      "domain": "technical-documentation",
+      "input": "La nueva capa permite validar el payload, permite registrar los errores y permite mantener trazabilidad del procesamiento.",
+      "accepted_direction": "Eliminar la repetición de 'permite' mediante estructura, no mediante rotación de sinónimos; conservar solo comportamientos sustentados.",
+      "preserve": ["validación", "registro de errores", "trazabilidad"],
+      "avoid": ["posibilita/facilita/habilita como synonym cycling", "claims adicionales"]
+    }
+  ]
+}
