@@ -1,0 +1,20 @@
+{
+  "skill_name": "no-ia-slop-es",
+  "purpose": "Evaluar precisión de activación de la descripción del frontmatter.",
+  "should_trigger": [
+    "¿Puedes quitarle el tono de IA a este correo sin cambiar mi forma de escribir?",
+    "Naturaliza este texto en español, está lleno de frases genéricas.",
+    "Audita este informe y dime dónde hay IA slop, pero no lo reescribas.",
+    "Necesito redactar una minuta en español sin el típico tono corporativo de ChatGPT.",
+    "Reescribe esto manteniendo chileno y mis tecnicismos; no quiero que quede como español neutro de IA.",
+    "Este párrafo repite la misma idea tres veces y usa 'en este sentido' por todos lados. Arréglalo."
+  ],
+  "should_not_trigger": [
+    "Corrige únicamente las tildes y errores ortográficos de este párrafo.",
+    "Traduce este contrato del inglés al español sin resumir.",
+    "¿Qué significa la expresión 'en este sentido'?",
+    "Escribe una consulta SQL para obtener los pedidos del último mes.",
+    "Resume estas notas en cinco bullets, sin cambiar el contenido.",
+    "Quiero saber si Turnitin puede detectar GPT-5. Busca información actual."
+  ]
+}
